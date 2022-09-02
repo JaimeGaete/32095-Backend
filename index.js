@@ -5,10 +5,15 @@ const { engine  } = require('express-handlebars')
 const app = express()
 const httpServer = new HttpServer(app)
 const io = new IOServer(httpServer)
+
+// Archivos
 const fsPromises = require('fs').promises;
 
+// Productos
 const Productos = require('./api/productos.js')
 const _productos = new Productos()
+
+// Chats
 const messages = []
 
 app.use(express.json())
