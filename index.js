@@ -31,13 +31,10 @@ app.post('/productos', (req, res) => {
 // guardo el chat
 async function addFile(data)
 {
-    let texto = data.map((elem, index) => { 
-            return(elem.email, elem.fechahora, elem.texto)}).join(" ");
+    let texto = data.map((elem, index) => { return( elem.email + "," + elem.fechahora + "," + elem.texto )}).join("\n");
 
     try {
-        console.log("texto", texto);
-        
-        await fsPromises.appendFile("file/chats.txt", texto + "\n");
+        await fsPromises.writeFile("file/chats.txt", texto);
     }
     catch (err) {
         console.log("Error al escribir archivo", err);
