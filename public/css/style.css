@@ -9,6 +9,7 @@ label {
 
 .jumbotron {
     min-height: 10vh;
+    padding: 2rem 2rem;
 }
 
 .msg_email {
