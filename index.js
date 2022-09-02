@@ -2,10 +2,10 @@ const express = require("express")
 const { Server: HttpServer } = require("http")
 const { Server: IOServer } = require("socket.io")
 const { engine  } = require('express-handlebars')
-
 const app = express()
 const httpServer = new HttpServer(app)
 const io = new IOServer(httpServer)
+const fsPromises = require('fs').promises;
 
 const Productos = require('./api/productos.js')
 const _productos = new Productos()
@@ -28,6 +28,22 @@ app.post('/productos', (req, res) => {
     res.redirect('/')
 })
 
+// guardo el chat
+async function addFile(data)
+{
+    let texto = data.map((elem, index) => { 
+            return(elem.email, elem.fechahora, elem.texto)}).join(" ");
+
+    try {
+        console.log("texto", texto);
+        
+        await fsPromises.appendFile("file/chats.txt", texto + "\n");
+    }
+    catch (err) {
+        console.log("Error al escribir archivo", err);
+    }
+}
+
 io.on('connection', socket => {
     console.log('Un cliente se ha conectado');
     socket.emit('productos', _productos.getAll());
@@ -35,6 +51,10 @@ io.on('connection', socket => {
     socket.on('new-message', data => {
         messages.push(data);
         io.sockets.emit('messages', messages);
+        (async () => {
+            addFile(messages)
+        }
+        )();
     });
 
 });
