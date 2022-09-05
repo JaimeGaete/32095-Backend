@@ -1,6 +1,6 @@
 
-# **VISTA AL VALLE** :shopping_cart:
-## *Proyecto de React JS Coderhouse - Comisión 37165*
+# Ecommerce Backend :shopping_cart:
+## *Proyecto del bootcamp Programación Backend Coderhouse - Comisión 32095*
 
 El proyecto "Vista al Valle" es un sitio de e-commerce de Experiencias y Productos tipicos de Chile. Por ejemplo, las Torres del Paine y ventas de vinos.
 
