@@ -10,15 +10,9 @@ El proyecto "Vista al Valle" es un sitio de e-commerce de Experiencias y Product
 - Detalle de los productos.
 - Listado de todos los artículos disponibles al entrar al sitio.
 
-## Herramientas Utilizadas:
-- React.
-- Firebase.
-
 ## Librerías:
-- React Bootstrap.
-- React Router.
-- ToastContainer.
-- Material UI.
+- Express: 4.18.1.
+- Handlebars: 6.0.6
 
 ## Creación e Instalación:
 Este proyecto se inició con [Create React App](https://github.com/facebook/create-react-app).
