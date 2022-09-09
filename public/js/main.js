@@ -41,11 +41,18 @@ let productosGetAll = () =>
 
 let getAll = async () => 
 {
+    // recupero los productos y los cargo en la plantilla
     let productos = await productosGetAll()
     const html =  await obtenerPlantillaProductos(productos)
     document.getElementById('products').innerHTML = html
+
+    // solución para asignar el id de carro a cada producto - creo el carro y el action usa el ID creado del carro para asociar los productos
+    let id = await carritoCreate()
+    document.getElementById('form_action').action = `/api/carrito/${id}/productos`
+  
 }
 
+/*
 Handlebars.registerHelper('print_idCarro', async function () {
     return fetch(carrito_create_url, { method: 'POST' })
     .then(response => response.json())
@@ -55,7 +62,7 @@ Handlebars.registerHelper('print_idCarro', async function () {
         return response
     })
 })
-
+*/
 
 
 /***** Sitio Privado ***********/

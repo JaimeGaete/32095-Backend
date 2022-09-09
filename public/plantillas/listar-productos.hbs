@@ -3,7 +3,7 @@
     {{#if productos}}
         {{#each productos}}
         <div class="card">
-            <form action="/api/carrito/{{print_idCarro}}/productos" method="get">
+            <form action="/api/carrito/id_carro/productos" method="get" id="form_action">
                 <img src="{{this.urlfoto}}" class="card-img-top" alt="{{this.nombre}}">
                 <div class="card-body">
                     <h5 class="card-title">{{this.nombre}}</h5>
