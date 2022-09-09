@@ -12,7 +12,7 @@ let id, data, result, id_prod
 // Crear
 router.post('/', (req, res) => {
     result = _carrito.crear()
-    res.send("ID: " + result)
+    res.send("" + result)
 })
 
 // Agregar producto

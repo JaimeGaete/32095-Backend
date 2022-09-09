@@ -5,6 +5,7 @@ const app = express()
 // routers
 const productoRouter = require('./routes/productos')
 const carritoRouter = require('./routes/carrito')
+const loginRouter = require('./routes/login')
 
 // funciones
 const errores = require('./functions/error')
@@ -13,7 +14,7 @@ const cfg = require('./config/configuration')
 // handlebars 
 app.engine( "hbs", engine ({ extname: ".hbs" }));
 app.set("view engine", "hbs");
-app.set("views", "./views");
+app.set("views", "./plantillas");
 
 // app.use
 app.use(express.json())
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 app.use('/api/productos', productoRouter)
 app.use('/api/carrito', carritoRouter)
+app.use('/api/login', loginRouter)
 app.use(errores.errorLogger)
 app.use(errores.errorResponder)
 app.use(errores.invalidPathHandler)

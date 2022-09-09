@@ -1,0 +1,22 @@
+
+<div class="card-group">
+    {{#if productos}}
+        {{#each productos}}
+        <div class="card">
+            <label for="urlImagen">URL Imgen</label><input id="urlImagen" class="form-control" type="text" name="urlImagen">
+            <img src="{{this.urlfoto}}" class="card-img-top" alt="{{this.nombre}}">
+            <div class="card-body">
+                <h5 class="card-title">{{this.nombre}}<br><label for="nombre">nombre</label><input id="nombre" class="form-control" type="text" name="nombre"></h5>
+                <p class="card-text">{{this.descripcion}}<br><label for="descripcion">Descripcion</label><input id="descripcion" class="form-control" type="text" name="descripcion"></p>
+                <p class="card-text"><small class="text-muted">${{this.precio}}</small><br><label for="precio">Precio</label><input id="precio" class="form-control" type="number" name="precio"></p>
+                <p class="card-text">{{this.descripcion}}<br><label for="descripcion">Descripcion</label><input id="descripcion" class="form-control" type="text" name="descripcion"></p>
+                <p class="card-text">{{this.codigo}}<br><label for="codigo">Codigo</label><input id="codigo" class="form-control" type="text" name="codigo"></p>
+                <p class="card-text">{{this.stock}}<br><label for="stock">Stock</label><input id="stock" class="form-control" type="number" name="stock"></p>
+            </div>
+        </div>
+        {{/each}}
+    {{else}}
+        <h3 class="alert alert-warning">No se encontraron productos!!</h3>
+    {{/if}}
+</div>
+
