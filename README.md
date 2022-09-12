@@ -59,7 +59,7 @@ RESPONSE:
 ```
 
 2. Listar producto por su ID
-
+```
 METHOD: GET
 URL: localhost:PORT/api/productos/*ID*
 REQUEST: no tiene.
@@ -74,9 +74,10 @@ RESPONSE:
     "stock": ""
     }
 ]
+```
 
 3. Agregar uno o más productos
-
+```
 METHOD: POST
 URL: localhost:PORT/api/productos
 REQUEST: 
@@ -95,9 +96,10 @@ RESPONSE:
 {
     "info": "Producto agregado"
 }
+```
 
 4. Actualizar un producto
-
+```
 METHOD: PUT
 URL: localhost:PORT/api/productos/*ID*
 REQUEST: 
@@ -116,9 +118,10 @@ RESPONSE:
 {
     "info": "Producto actualizado"
 }
+```
 
 5. Eliminar un producto
-
+```
 METHOD: DELETE
 URL: localhost:PORT/api/productos/*ID*
 REQUEST: 
@@ -137,7 +140,7 @@ RESPONSE:
 {
     "info": "Producto eliminado"
 }
-
+```
 
 ### Carrito:
 
