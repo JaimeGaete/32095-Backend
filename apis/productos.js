@@ -1,48 +1,105 @@
-
-const nowdate = require('../functions/nowdate')
-
-let prod, newProd, index
+const { writeFile, readFile } = require('fs').promises
 
 class Productos {
     constructor() {
-        this.productos = []
-        this.id = 0
-        this.timestamp = nowdate.getDateTime()
+        this.fileName = './files/productos.json'
     }
 
-    listar(id) {
-        prod = this.productos.find( prod => prod.id == id )
-        return prod || { error: 'producto no encontrado' }
+    /****** Funciones para acceder al archivo  ******/
+
+    // recupera productos del archivo; sino, devuelve un producto vacio
+    async listarArchivo() {
+        try {
+            const productosJson = await readFile(this.fileName, 'utf-8')
+            const productosList = JSON.parse(productosJson)
+            return productosList
+        } catch (error) {
+           const productosArr = {
+                nextId: 1,
+                productos: []
+            }
+            this.agregarProductoArchivo(productosArr)
+            return productosArr
+        }
     }
 
-    listarAll() {
-        return [...this.productos]
+    // agrega productos al archivo
+    async agregarProductoArchivo(productosArr) {
+        try {
+            const producto = JSON.stringify(productosArr)
+            await writeFile(this.fileName, producto)
+            return true
+        } catch (error) {
+            console.log(error);
+            return false
+        }
     }
 
-    guardar(prod) {
-        newProd = { ...prod, id: ++this.id, timestamp : nowdate.getDateTime() }
-        this.productos.push(newProd)
-        return { info: 'Producto agregado' }
+    /****** Funciones de los productos  ******/
+
+    // Recupero todos los productos
+    async listarTodos() {
+        const { productos } = await this.listarArchivo()
+        return productos || { info: 'No existen productos' }
     }
 
-    actualizar(id, prod) {
-        newProd = { ...prod, id: Number(id), timestamp : nowdate.getDateTime() }
-        index = this.productos.findIndex( p => p.id == id )
-        if (index !== -1) {
-            this.productos[index] = newProd
-            return { info: 'Producto actualizado' }
-        } else {
+    // Recupero producto por su Id
+    async listarPorId(id) {
+        const { productos } = await this.listarArchivo()
+        const prod = productos.find(item => item.id == id )
+        return prod || { info: 'producto no encontrado' }
+    }
+
+    // Crear producto
+    async crear(item) {
+        const productosArr = await this.listarArchivo()
+        const id = productosArr.nextId
+        productosArr.nextId++
+        const timestamp = Date.now()
+
+        const newItem = {
+            ...item,
+            id,
+            timestamp
+        }
+
+        productosArr.productos.push(newItem)
+        const result = await this.agregarProductoArchivo(productosArr)
+        if (result) return { info: 'Producto agregado' }
+        return result
+    }
+
+    // Actualizar producto
+    async actualizar(id, data) {
+        const productosArr = await this.listarArchivo()
+        const { productos } = productosArr
+        
+        const producto = productos.find(item => item.id == id)
+        if (producto) {
+            Object.keys(data).forEach(key => {
+                producto[key] = data[key]
+            })
+        } else { 
             return { error: 'Producto no encontrado' }
         }
+
+        const result = await this.agregarProductoArchivo(productosArr)
+        if (result) return { info: 'Producto actualizado' }
+        return { error: 'Ocurrio un error al actualizar el producto' }
     }
 
-    borrar(id) {
-        index = this.productos.findIndex( prod => prod.id == id )
-        if (index !== -1) {
-            return this.productos.splice(index, 1)
-        } else {
-            return { error: 'producto no encontrado' }
+    // Eliminar producto
+    async borrar(id) {
+        const productosArr = await this.listarArchivo()
+        const { productos } = productosArr
+        const index = productos.findIndex(item => item.id == id)
+
+        if (index >= 0) {
+            productos.splice(index, 1)
+            await this.agregarProductoArchivo(productosArr)
+            return { info: 'Producto eliminado' }
         }
+        return { error: 'producto no encontrado' }
     }
 }
 

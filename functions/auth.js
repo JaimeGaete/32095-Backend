@@ -12,8 +12,10 @@ const authorization = (req, res, next) => {
 
 const authorizationUserPass = (req, res, next) => {
 
-    let user = req.params.user
-    let pass = req.params.pass
+    let user = req.body.nombre
+    let pass = req.body.password
+
+    console.log("user + pass", user + " + " + pass)
 
     if ((cfg.configuration.USERADMIN == user) || (cfg.configuration.PASSADMIN == pass)) 
     {
