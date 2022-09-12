@@ -64,7 +64,7 @@ RESPONSE:
 ```
 METHOD: GET
 URL: localhost:PORT/api/productos/*ID*
-REQUEST: no tiene.
+REQUEST: ID del producto.
 RESPONSE: 
 [
     {
@@ -76,9 +76,6 @@ RESPONSE:
     "stock": ""
     }
 ]
-
-*Modifique el ID por el identificador del producto que desea obtener.*
-
 ```
 
 3. Agregar uno o más productos
@@ -150,5 +147,103 @@ RESPONSE:
 *Modifique el ID por el identificador del producto que desea eliminar.*
 ```
 
-### Carrito:
+### Carro:
+
+1. Listar todos los carros
+```
+METHOD: GET
+URL: localhost:PORT/api/carrito
+REQUEST: no tiene.
+RESPONSE: 
+
+*Cuando el carro no tiene productos:*
+[
+    {
+        "id": ,
+        "timestamp": ,
+        "productos": []
+    }
+]
+
+*Cuando el carro tiene productos:*
+[
+    {
+        "id": ,
+        "timestamp": ,
+        "productos": [
+            {
+                "nombre": "",
+                "descripcion": "",
+                "codigo": "",
+                "urlfoto": "",
+                "precio": "",
+                "stock": "",
+                "id": ,
+                "timestamp": 
+            }
+        ]
+    }
+]
+
+*Esta estructura se repetira por cada uno de los carros almacenados*
+```
+
+2. Listar carro por su ID
+```
+METHOD: GET
+URL: localhost:PORT/api/carrito/*ID*/productos
+REQUEST: ID del carrito.
+RESPONSE: 
+{
+    "id": ,
+    "timestamp": ,
+    "productos": [
+        {
+            "nombre": "",
+            "descripcion": "",
+            "codigo": "",
+            "urlfoto": "",
+            "precio": "",
+            "stock": "",
+            "id": ,
+            "timestamp": 
+        }
+    ]
+}
+```
+
+3. Crear carro
+```
+METHOD: POST
+URL: localhost:PORT/api/carrito
+REQUEST: no tiene.
+RESPONSE: ID del carrito creado.
+```
+
+4. Borrar carro
+```
+METHOD: DELETE
+URL: localhost:PORT/api/carrito/*ID*
+REQUEST: ID del carro a eliminar.
+RESPONSE: 
+{
+    "info": "Carro eliminado"
+}
+```
+
+
+5. Borrar un producto de un carro
+```
+METHOD: DELETE
+URL: localhost:PORT/api/carrito/*ID*/productos/*ID_PRODUCTO*
+REQUEST: ID del carro. ID del producto a eliminar.
+RESPONSE: 
+{
+    "info": "Producto eliminado"
+}
+```
+
+
+
+
 
