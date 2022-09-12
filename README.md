@@ -1,7 +1,7 @@
 
 <h1 align="center"> # Ecommerce Backend :shopping_cart: </h1>
 
-# *Proyecto del bootcamp Programación Backend Coderhouse - Comisión 32095*
+# *Programación Backend Coderhouse - Comisión 32095*
 
 El proyecto "Vista al Valle" es un sitio de e-commerce de Experiencias y Productos tipicos de Chile. Por ejemplo, las Torres del Paine y ventas de vinos.
 
@@ -27,7 +27,7 @@ Para utilizar la aplicación en el modo de desarrollo, ejecute:
 ```
 $ npm start
 ````
-Ejecute [http://localhost:8080](http://localhost:8080) para verla en su navegador.
+Ejecute [http://localhost:PORT](http://localhost:PORT) para verla en su navegador.
 
 
 ## Librerías utilizadas:
@@ -41,7 +41,7 @@ El proyecto expone dos apis:
 ### Productos:
 
 1. Listar todos los productos
-
+```
 METHOD: GET
 URL: localhost:PORT/api/productos
 REQUEST: no tiene.
@@ -56,6 +56,7 @@ RESPONSE:
     "stock": ""
     }
 ]
+```
 
 2. Listar producto por su ID
 
