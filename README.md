@@ -76,6 +76,9 @@ RESPONSE:
     "stock": ""
     }
 ]
+
+*Modifique el ID por el identificador del producto que desea obtener.*
+
 ```
 
 3. Agregar uno o más productos
@@ -120,6 +123,8 @@ RESPONSE:
 {
     "info": "Producto actualizado"
 }
+
+*Modifique el ID por el identificador del producto que desea actualizar.*
 ```
 
 5. Eliminar un producto
@@ -142,6 +147,7 @@ RESPONSE:
 {
     "info": "Producto eliminado"
 }
+*Modifique el ID por el identificador del producto que desea eliminar.*
 ```
 
 ### Carrito:
