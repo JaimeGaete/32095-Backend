@@ -14,7 +14,7 @@ El proyecto "Vista al Valle" es un sitio de e-commerce de Experiencias y Product
 
 # Creación e Instalación:
 
-Debes instalar  Node.js en tu computador** [(descargar Node.js)](https://nodejs.org/es/download/).
+Debes instalar Node.js en tu computador** [(descargar Node.js)](https://nodejs.org/es/download/).
 
 Para instalar las dependencias, en el directorio del proyecto ejecute: 
 ```
@@ -27,7 +27,9 @@ Para utilizar la aplicación en el modo de desarrollo, ejecute:
 ```
 $ npm start
 ````
-Ejecute [http://localhost:PORT](http://localhost:PORT) para verla en su navegador.
+*La aplicación por defecto intentará utilizar el puerto 8080 para iniciarse.*
+
+Ejecute [http://localhost:8080](http://localhost:8080) para verla en su navegador.
 
 
 ## Librerías utilizadas:
