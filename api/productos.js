@@ -1,20 +1,35 @@
+const connmysql = require('../DB/connMySql')
+
 class Productos {
     
     constructor() {
-        this.productos = []
-        this.id = 0
+        this.knex = connmysql
+        this.tabla = 'productos'
     }
 
-    getAll() {
-        return [...this.productos]
+    async getAll() {
+        try {
+            const productos = await this.knex.from(this.tabla).select('*')
+            .then(function (productos) {
+               return productos;
+            })
+            return productos;
+        } catch (e) {
+            console.error('Error en el select:', e.message);
+        }
     }
 
-    addPrd(prod) {
-        const newProd = { ...prod, id: ++this.id }
-        this.productos.push(newProd)
-        return newProd
-    }
+    async addPrd(prod) {
+        const producto = [
+            {title: prod.title, price: prod.price, thumbnail: prod.thumbnail}
+        ]
 
+        await this.knex(this.tabla).insert(producto)
+            .then(() => { console.log("data insertada"); return true })
+            .catch((e) => {
+                console.error('Error en el select:', e.message);
+            })  
+    }
 }
 
 module.exports = Productos

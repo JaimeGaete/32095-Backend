@@ -1,5 +1,7 @@
 const socket = io.connect()
 
+/************** PRODUCTOS  ***************/
+
 function obtenerPlantillaProductos(productos)
 {
     return fetch('plantillas/tabla-productos.hbs')
@@ -16,11 +18,14 @@ socket.on('productos', async productos => {
     document.getElementById('products').innerHTML = html
 })
 
+
+/************** MENSAJES  ***************/
+
 function addMessage(e) {
 
     const mensaje = {
         email: document.getElementById('email').value,
-        fechahora: getDateTime(),
+        fechahora: Date.now(),
         texto: document.getElementById('texto').value
     };
 
@@ -29,6 +34,9 @@ function addMessage(e) {
 }
 
 function render(data) {
+
+    console.log ("data", data)
+
     const html = data.map((elem, index) => {
         return(`
         <table>
@@ -44,27 +52,3 @@ function render(data) {
 
 socket.on('messages', function(data) { render(data); });
 
-
-function getDateTime()
-{
-    const dateObj = new Date();
-
-    let year = dateObj.getFullYear();
-    
-    let month = dateObj.getMonth();
-    month = ('0' + month).slice(-2);
-    
-    let date = dateObj.getDate();
-    date = ('0' + date).slice(-2);
-    
-    let hour = dateObj.getHours();
-    hour = ('0' + hour).slice(-2);
-    
-    let minute = dateObj.getMinutes();
-    minute = ('0' + minute).slice(-2);
-    
-    let second = dateObj.getSeconds();
-    second = ('0' + second).slice(-2);
-   
-    return `${year}/${month}/${date} ${hour}:${minute}:${second}`;
-}
