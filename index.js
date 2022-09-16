@@ -39,6 +39,7 @@ io.on('connection', async socket => {
     socket.emit('productos', await _productos.getAll());
     io.sockets.emit('messages', await _mensajes.getAll());
 
+    // al agregar un nuevo mensaje
     socket.on('new-message', async data => {
         messages.push(data);
         (async () => { await _mensajes.add(messages) } )();
