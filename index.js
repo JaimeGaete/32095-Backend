@@ -7,9 +7,8 @@ const { engine  } = require('express-handlebars')
 const httpServer = new HttpServer(app)
 const io = new IOServer(httpServer)
 
-const productoRouter = require('./routes/productos.route')
-
 const errores = require('./functions/error')
+
 const Productos = require('./api/productos.js')
 const _productos = new Productos()
 const Mensajes = require('./api/mensajes.js')
@@ -18,26 +17,38 @@ const _mensajes = new Mensajes()
 // chats
 const messages = []
 
-// app.use
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(express.static('public'))
-app.use('/productos', productoRouter)
-app.use(errores.errorLogger)
-app.use(errores.errorResponder)
-app.use(errores.invalidPathHandler)
-
 // handlebars 
 app.engine( "hbs", engine ({ extname: ".hbs" }));
 app.set("view engine", "hbs");
 app.set("views", "./plantillas");
 
+
+// app.use
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static('public'))
+
+app.post('/productos', async (req, res, next) => {
+    try {
+        const data = req.body
+        await _productos.addPrd(data)
+        io.sockets.emit('productos', await _productos.getAll());
+        res.redirect('/')
+    }
+    catch (err) {
+        next(err)
+    }
+})
+
+app.use(errores.errorLogger)
+app.use(errores.errorResponder)
+app.use(errores.invalidPathHandler)
+
 io.on('connection', async socket => {
     console.log('Un cliente se ha conectado');
 
-    // presento en pantalla los datos almacenados en tabla de productos y mensajes
+    // presento en pantalla los datos almacenados en tabla de productos
     socket.emit('productos', await _productos.getAll());
-    io.sockets.emit('messages', await _mensajes.getAll());
 
     // al agregar un nuevo mensaje
     socket.on('new-message', async data => {

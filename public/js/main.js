@@ -14,6 +14,9 @@ function obtenerPlantillaProductos(productos)
 }
 
 socket.on('productos', async productos => {
+
+    console.log("main.js", productos)
+
     const html =  await obtenerPlantillaProductos(productos)
     document.getElementById('products').innerHTML = html
 })
