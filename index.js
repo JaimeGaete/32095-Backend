@@ -34,21 +34,21 @@ app.set("views", "./plantillas");
 
 io.on('connection', async socket => {
     console.log('Un cliente se ha conectado');
-
-    //console.log("1111  _productos.getAll()",  await _productos.getAll())
-
+    
     socket.emit('productos', await _productos.getAll());
+    io.sockets.emit('messages', await _mensajes.getAll());
 
-    socket.on('new-message', data => {
-
-        console.log("new-message", data)
-
+    socket.on('new-message', async data => {
+        /*
         messages.push(data);
         io.sockets.emit('messages', messages);
-
         (async () => { await _mensajes.add(messages) } )();
+        */
+        messages.push(data);
+        (async () => { await _mensajes.add(messages) } )();
+        io.sockets.emit('messages', await _mensajes.getAll());
+       
     });
-
 });
 
 const PORT = process.env.PORT || 8080

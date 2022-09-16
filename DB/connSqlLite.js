@@ -9,7 +9,6 @@ const connsqlite = Knex({
 
 // Creación de la tabla mensajes
 connsqlite.schema.createTableIfNotExists('mensajes', function(table) {
-  table.increments();
   table.string('email');
   table.string('fechahora');
   table.string('texto');
