@@ -9,6 +9,7 @@ const io = new IOServer(httpServer)
 
 const errores = require('./functions/error')
 
+// apis
 const Productos = require('./api/productos.js')
 const _productos = new Productos()
 const Mensajes = require('./api/mensajes.js')
@@ -22,12 +23,12 @@ app.engine( "hbs", engine ({ extname: ".hbs" }));
 app.set("view engine", "hbs");
 app.set("views", "./plantillas");
 
-
 // app.use
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
+// post
 app.post('/productos', async (req, res, next) => {
     try {
         const data = req.body
@@ -40,10 +41,12 @@ app.post('/productos', async (req, res, next) => {
     }
 })
 
+// errores
 app.use(errores.errorLogger)
 app.use(errores.errorResponder)
 app.use(errores.invalidPathHandler)
 
+//socket
 io.on('connection', async socket => {
     console.log('Un cliente se ha conectado');
 
@@ -54,8 +57,7 @@ io.on('connection', async socket => {
     socket.on('new-message', async data => {
         messages.push(data);
         (async () => { await _mensajes.add(messages) } )();
-        io.sockets.emit('messages', await _mensajes.getAll());
-       
+        io.sockets.emit('messages', messages);
     });
 });
 
