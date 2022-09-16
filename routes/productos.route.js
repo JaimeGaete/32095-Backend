@@ -16,7 +16,7 @@ const _productos = new Productos()
 productosRouter.post('/', async (req, res, next) => {
     try {
         const data = req.body
-        _productos.addPrd(data)
+        await _productos.addPrd(data)
         
         io.sockets.emit('productos', await _productos.getAll());
         res.redirect('/')
