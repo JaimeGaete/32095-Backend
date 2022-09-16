@@ -11,6 +11,13 @@ const connmysql = Knex({
   },
 });
 
+// Creación de la tabla productos
+connmysql.schema.createTableIfNotExists('productos', function(table) {
+  table.string('title');
+  table.string('price');
+  table.string('thumbnail');
+})
+.then(console.log);
 
 
 module.exports = connmysql

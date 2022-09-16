@@ -22,7 +22,6 @@ socket.on('productos', async productos => {
 /************** MENSAJES  ***************/
 
 function addMessage(e) {
-
     const mensaje = {
         email: document.getElementById('email').value,
         fechahora: Date.now(),
@@ -34,9 +33,6 @@ function addMessage(e) {
 }
 
 function render(data) {
-
-    console.log ("data", data)
-
     const html = data.map((elem, index) => {
         return(`
         <table>

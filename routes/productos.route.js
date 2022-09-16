@@ -1,5 +1,13 @@
-const { Router } = require('express')
+const express = require("express")
+const { Router } = require("express")
+const app = express()
+
 const productosRouter = Router()
+
+const { Server: HttpServer } = require("http")
+const { Server: IOServer } = require("socket.io")
+const httpServer = new HttpServer(app)
+const io = new IOServer(httpServer)
 
 const Productos = require('../api/productos.js')
 const _productos = new Productos()
@@ -11,7 +19,7 @@ productosRouter.post('/', async (req, res, next) => {
         _productos.addPrd(data)
         
         io.sockets.emit('productos', await _productos.getAll());
-        res.send("/")
+        res.redirect('/')
     }
     catch (err) {
         next(err)
