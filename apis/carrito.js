@@ -1,4 +1,4 @@
-const { writeFile, readFile } = require('fs').promises
+import { promises as fs } from 'fs'
 
 class Carrito {
     constructor() {
@@ -115,4 +115,6 @@ class Carrito {
     }
 }
 
-module.exports = Carrito
+let carritoDao = new Carrito()
+
+export {carritoDao}

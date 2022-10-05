@@ -1,9 +1,8 @@
+import p from '../param/parametros.js'
 
-const cfg = require('../config/configuration')
+export const authorization = (req, res, next) => {
 
-const authorization = (req, res, next) => {
-
-    if (cfg.configuration.ADMINISTRADOR) {
+    if (p.param.ADMINISTRADOR) {
         next();
     } else {
         res.status(403).send(`Ruta "${req.originalUrl}" metodo "${req.method}" no autorizada`);
@@ -25,5 +24,3 @@ const authorizationUserPass = (req, res, next) => {
     }
 }
 
-module.exports.authorization = authorization
-module.exports.authorizationUserPass = authorizationUserPass

@@ -1,4 +1,4 @@
-const { writeFile, readFile } = require('fs').promises
+import { promises as fs } from 'fs'
 
 class Productos {
     constructor() {
@@ -10,7 +10,7 @@ class Productos {
     // recupera productos del archivo; sino, devuelve un producto vacio
     async listarArchivo() {
         try {
-            const productosJson = await readFile(this.fileName, 'utf-8')
+            const productosJson = await fs.readFile(this.fileName, 'utf-8')
             const productosList = JSON.parse(productosJson)
             return productosList
         } catch (error) {
@@ -27,7 +27,7 @@ class Productos {
     async agregarProductoArchivo(productosArr) {
         try {
             const producto = JSON.stringify(productosArr)
-            await writeFile(this.fileName, producto)
+            await fs.writeFile(this.fileName, producto)
             return true
         } catch (error) {
             console.log(error);
@@ -103,5 +103,6 @@ class Productos {
     }
 }
 
-module.exports = Productos
+let productoDao = new Productos()
 
+export {productoDao}
